@@ -7,3 +7,13 @@
 #### No Single Point of Failure: Data in Cassandra is replicated across multiple nodes in the cluster, ensuring that there is no single point of failure. This replication strategy contributes to both fault tolerance and high availability.
 
 #### Column-Family Data Model: Cassandra organizes data into column families, which are similar to tables in a relational database. Each row in a column family is identified by a unique key, and each row can have a dynamic number of columns.
+
+#### Query Language (CQL): Cassandra Query Language (CQL) is a SQL-like language for interacting with Cassandra. It provides a familiar syntax for developers who are already familiar with SQL databases, making it easier to transition to Cassandra.
+
+#### Tunable Consistency: Cassandra provides tunable consistency, allowing developers to choose the level of consistency they need for each read and write operation. This flexibility is essential for balancing performance and consistency in distributed systems.
+
+#### Write and Read Performance: Cassandra is optimized for high write and read throughput. It supports both fast writes and efficient reads, making it suitable for use cases with heavy write loads and large-scale data retrieval.
+
+#### Support for Time Series Data: Cassandra is well-suited for handling time series data due to its ability to efficiently write and retrieve data based on timestamps.
+
+#### Wide-Column Store: Cassandra is often classified as a wide-column store NoSQL database. This means that data is stored in columns rather than rows, allowing for efficient querying and retrieval of specific columns of data.
