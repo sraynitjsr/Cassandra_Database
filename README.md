@@ -17,3 +17,9 @@
 #### Support for Time Series Data: Cassandra is well-suited for handling time series data due to its ability to efficiently write and retrieve data based on timestamps.
 
 #### Wide-Column Store: Cassandra is often classified as a wide-column store NoSQL database. This means that data is stored in columns rather than rows, allowing for efficient querying and retrieval of specific columns of data.
+
+## 1.Understanding the Data Model:-
+#### Cassandra uses a NoSQL data model, specifically a wide-column store. The basic building blocks are:
+#### Keyspace: The top-level container for data in Cassandra.
+#### Column Family (Table): Represents a collection of rows, each with a unique key. Each row consists of columns, and columns are grouped into column families.
+#### Column: The basic unit of data in Cassandra. A column has a name, a value, and a timestamp. Columns are grouped into rows.
