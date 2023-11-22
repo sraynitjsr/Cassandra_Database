@@ -28,4 +28,5 @@
 #### CREATE KEYSPACE my_keyspace WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 1};
 #### USE my_keyspace;
 #### CREATE TABLE my_table (id UUID PRIMARY KEY, name TEXT, age INT);
+#### INSERT INTO my_table (id, name, age) VALUES (uuid(), 'John Doe', 25);
 
