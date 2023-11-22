@@ -29,4 +29,5 @@
 #### USE my_keyspace;
 #### CREATE TABLE my_table (id UUID PRIMARY KEY, name TEXT, age INT);
 #### INSERT INTO my_table (id, name, age) VALUES (uuid(), 'John Doe', 25);
+#### SELECT * FROM my_table WHERE id = <some_uuid>;
 
