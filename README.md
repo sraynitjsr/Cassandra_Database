@@ -23,3 +23,7 @@
 #### Keyspace: The top-level container for data in Cassandra.
 #### Column Family (Table): Represents a collection of rows, each with a unique key. Each row consists of columns, and columns are grouped into column families.
 #### Column: The basic unit of data in Cassandra. A column has a name, a value, and a timestamp. Columns are grouped into rows.
+
+## 2. Basic CQL Commands:-
+#### CREATE KEYSPACE my_keyspace WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 1};
+
