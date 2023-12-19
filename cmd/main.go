@@ -49,6 +49,7 @@ func main() {
 	router.HandleFunc("/books", getBooks).Methods("GET")
 	router.HandleFunc("/books/{id}", getBook).Methods("GET")
 	router.HandleFunc("/books", createBook).Methods("POST")
+	router.HandleFunc("/books/{id}", updateBook).Methods("PUT")
   	log.Fatal(http.ListenAndServe(":8080", router))
 }
 
@@ -127,4 +128,28 @@ func createBook(w http.ResponseWriter, r *http.Request) {
 	}
 
 	respondWithJSON(w, http.StatusCreated, book)
+}
+
+func updateBook(w http.ResponseWriter, r *http.Request) {
+	params := mux.Vars(r)
+	id, err := gocql.ParseUUID(params["id"])
+	if err != nil {
+		respondWithError(w, http.StatusBadRequest, "Invalid book ID")
+		return
+	}
+
+	var book Book
+	if err := parseJSON(r, &book); err != nil {
+		respondWithError(w, http.StatusBadRequest, "Invalid request payload")
+		return
+	}
+
+	if err := session.Query(`
+		UPDATE books SET title = ?, author = ? WHERE id = ?`,
+		book.Title, book.Author, id).Exec(); err != nil {
+		respondWithError(w, http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	respondWithJSON(w, http.StatusOK, book)
 }
