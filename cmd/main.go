@@ -45,11 +45,10 @@ func init() {
 
 func main() {
 	defer session.Close()
-
 	router := mux.NewRouter()
 	router.HandleFunc("/books", getBooks).Methods("GET")
-
-  log.Fatal(http.ListenAndServe(":8080", router))
+	router.HandleFunc("/books/{id}", getBook).Methods("GET")
+  	log.Fatal(http.ListenAndServe(":8080", router))
 }
 
 func parseJSON(r *http.Request, data interface{}) error {
@@ -89,4 +88,23 @@ func getBooks(w http.ResponseWriter, r *http.Request) {
 	}
 
 	respondWithJSON(w, http.StatusOK, books)
+}
+
+func getBook(w http.ResponseWriter, r *http.Request) {
+	params := mux.Vars(r)
+	id, err := gocql.ParseUUID(params["id"])
+	if err != nil {
+		respondWithError(w, http.StatusBadRequest, "Invalid book ID")
+		return
+	}
+
+	var book Book
+	err = session.Query("SELECT id, title, author FROM books WHERE id = ?", id).
+		Scan(&book.ID, &book.Title, &book.Author)
+	if err != nil {
+		respondWithError(w, http.StatusNotFound, "Book not found")
+		return
+	}
+
+	respondWithJSON(w, http.StatusOK, book)
 }
