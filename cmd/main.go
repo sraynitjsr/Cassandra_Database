@@ -48,6 +48,7 @@ func main() {
 	router := mux.NewRouter()
 	router.HandleFunc("/books", getBooks).Methods("GET")
 	router.HandleFunc("/books/{id}", getBook).Methods("GET")
+	router.HandleFunc("/books", createBook).Methods("POST")
   	log.Fatal(http.ListenAndServe(":8080", router))
 }
 
@@ -107,4 +108,23 @@ func getBook(w http.ResponseWriter, r *http.Request) {
 	}
 
 	respondWithJSON(w, http.StatusOK, book)
+}
+
+func createBook(w http.ResponseWriter, r *http.Request) {
+	var book Book
+	if err := parseJSON(r, &book); err != nil {
+		respondWithError(w, http.StatusBadRequest, "Invalid request payload")
+		return
+	}
+
+	book.ID = gocql.TimeUUID()
+
+	if err := session.Query(`
+		INSERT INTO books (id, title, author) VALUES (?, ?, ?)`,
+		book.ID, book.Title, book.Author).Exec(); err != nil {
+		respondWithError(w, http.StatusInternalServerError, err.Error())
+		return
+	}
+
+	respondWithJSON(w, http.StatusCreated, book)
 }
