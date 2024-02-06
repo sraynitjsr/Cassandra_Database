@@ -21,3 +21,13 @@
 #### f. Replication: Cassandra replicates data across multiple nodes in the cluster to ensure high availability and fault tolerance. You can configure the replication strategy and the number of replicas for each keyspace.
 
 #### g. Consistency Levels: Cassandra offers tunable consistency levels, allowing you to trade off consistency for availability and performance. Consistency levels determine how many replicas must respond to a read or write operation for it to be considered successful.
+
+## Basic Operations:
+
+#### a. Inserting Data: To insert data into Cassandra, you use the INSERT statement. Data is written to the appropriate node based on the partition key.
+
+#### b. Querying Data: You can query data from Cassandra using the SELECT statement. Queries are routed to the appropriate nodes based on the partition key.
+
+#### c. Updating and Deleting Data: Cassandra supports updating and deleting data using the UPDATE and DELETE statements, respectively.
+
+#### d. Creating and Managing Tables: You can create and manage tables using the CREATE TABLE and ALTER TABLE statements. Tables can have composite primary keys and secondary indexes.
